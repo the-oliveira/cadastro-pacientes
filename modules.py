@@ -1,5 +1,4 @@
 from time import sleep
-from main import *
 import pandas as pd
 
 def verificarCadastro(nome):
@@ -58,8 +57,39 @@ def cadastrarPaciente(dados):
     dadosFinais = pd.DataFrame([dados]) #Criando dataframe com os dados do paciente
     dadosFinais.to_csv('pacientes.csv', mode='a', index=False, header=False) #registrando os dados no excel
 
-    print("="*30)
+    print("="*40)
     print(f"{'Cadastro realizado com sucesso!':^30}")
-    print("="*30)
+    print("="*40)
 
     return 200
+
+def consultarPaciente(df, rg):
+    if df.isin([rg]).any().any() == True:
+        #Valor existe no documento
+        print("[AVISO] Cadastro encontrado, selecione a opção: ")
+        sleep(3)
+        while True:
+            print("="*40)
+            print("[1] - Consultar exames do paciente")
+            print("[2] - alterar status do paciente")
+            print("[3] - Voltar ao menu principal")
+            print("="*40)
+            
+            escolha = input("Escolha uma opção: ")
+            while escolha not in "123":
+                escolha = input("Escolha uma opção: ")
+
+            if escolha == 1:
+                print("Caminho para consultar exames")
+            
+            elif escolha == 2:
+                print("Caminho para alterar status")
+
+            else:
+                print("Retornando ao menu principal...")
+                sleep(2)
+                break
+        
+        return True
+    else:
+         return False

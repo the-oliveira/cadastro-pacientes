@@ -1,4 +1,4 @@
-import modules as md
+from modules import *
 from time import sleep
 import pandas as pd
 
@@ -8,6 +8,7 @@ print("="*40)
 
 #Carregar o arquivo com os dados salvos
 df = pd.read_csv("pacientes.csv")
+
 
 while True:
     sleep(5)
@@ -26,19 +27,24 @@ while True:
     if int(escolhaUsuario) == 1:
         #caminho para adicionar novo paciente
 
-        novoP = md.coletarDados() #Coletar dados para cadastrar
-        cadastrarP = md.cadastrarPaciente(novoP) #Cadastro de paciente
+        novoP = coletarDados() #Coletar dados para cadastrar
+        cadastrarP = cadastrarPaciente(novoP) #Cadastro de paciente
         sleep(2)
         print("Voltando para o menu principal...")
         sleep(2)
 
     elif int(escolhaUsuario) == 2:
         #Caminho para consultar obras e atualizar status
-        print('teste 2')
+        print("CONSULTA DE PACIENTES CADASTRADOS")
+        rgP = input("Digite o RG do paciente que deseja consultar: ")
+        while len(rgP) < 9 and len(rgP) >9:
+            rgP = input("[AVISO] Digite um RG válido! ")
+
+        pacienteView = consultarPaciente(df, rgP)
     
     elif int(escolhaUsuario) == 3:
         #Caminho para sair do aplicativo
         print("Encerrando aplicativo")
-        print("="*30)
+        print("="*40)
         sleep(3)
         break
